@@ -8,7 +8,7 @@ namespace mysic_sync
 {
     class Program
     {
-        static int[] indexes;
+        static List<int> indexes;
 
         static void Main(string[] args)
         {
@@ -18,19 +18,23 @@ namespace mysic_sync
             var folder = new DirectoryInfo(src);
             var files = folder.GetFiles("*.mp3", SearchOption.AllDirectories);
             var length = files.Length;
+            indexes = new List<int>();
             for (var i = 0; i < length; i++)
             {
-                /*try 
-                {*/
+                try 
+                {
                     var indx = index(length);
-                    var fileName = files[indx];
-                    File.Copy(src + fileName, dst + fileName);
-                /*}
+                    var curFile = files[indx];
+                    File.Copy(curFile.FullName, dst + curFile.Name);
+                }
                 catch (Exception ex) 
-                { 
-
-                }*/
+                {
+                    Console.Out.WriteLine(ex.Message);
+                    break;
+                }
             }
+            Console.Out.WriteLine("Done");
+            Console.In.ReadLine();
         }
 
         static int index(int max)
@@ -41,7 +45,7 @@ namespace mysic_sync
             {
                 return index(max);
             }
-            indexes[indexes.Length] = cur;
+            indexes.Add(cur);
             return cur;
         }
     }
