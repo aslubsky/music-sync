@@ -46,7 +46,7 @@ namespace sync
                 {
                     return;
                 }
-                _files.Add(new string[] { curFile.FullName, _dstFolder.FullName + curFile.Name });
+                _files.Add(new string[] { curFile.FullName, _dstFolder.FullName + "/" + curFile.Name });
             }
         }
 
